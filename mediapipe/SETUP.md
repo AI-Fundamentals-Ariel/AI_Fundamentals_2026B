@@ -1,33 +1,41 @@
-# mediapipe — setup & run
+# mediapipe — התקנה והרצה (Windows)
 
-Hand / face landmark demos and small games built on
+הדגמות של זיהוי יד / פנים ומשחקים קטנים, מבוסס על
 [MediaPipe](https://github.com/google/mediapipe).
 
-## Quick start
+## דרישה מקדימה
+התקן **Python 3.12** מהאתר הרשמי: https://www.python.org/downloads/
+בזמן ההתקנה סמן את התיבה **"Add Python to PATH"**. זה הכלי היחיד שצריך.
 
-```bash
-./setup.sh                # installs uv (if missing) + Python 3.12 + dependencies into .venv
-./run.sh app.py           # hand tracking
-./run.sh index.py         # hand landmark demo
-./run.sh snake.py         # gesture-controlled snake
-./run.sh flappyBird.py    # gesture-controlled flappy bird
+## התקנה (פעם אחת)
+פתח **CMD** בתיקייה הזו והרץ:
+
+```bat
+py -3.12 -m venv .venv
+.venv\Scripts\activate
+pip install -r requirments.txt
 ```
 
-`setup.sh` is automatic and safe to re-run. It installs [`uv`](https://astral.sh/uv)
-if needed, and `uv` downloads **Python 3.12** for you if it's missing.
+## הרצה
+כשהסביבה פעילה (מופיע `(.venv)` בתחילת השורה):
 
-## Notes
-- Requires a **webcam** and a **display** (OpenCV / pygame windows).
-- **Version pin matters:** mediapipe **≥ 0.10.30 removed the legacy `mp.solutions`
-  API** (slim, tasks-only builds). Every script here uses `mp.solutions.hands`,
-  so `requirments.txt` pins `mediapipe>=0.10.14,<0.10.30`. Don't unpin it.
-- This project deliberately does **not** include TensorFlow: mediapipe requires
-  `protobuf<5` while TensorFlow ≥ 2.20 requires `protobuf>=5.28` — they can't
-  coexist in one environment, and the scripts don't use TensorFlow.
-
-## Windows / manual
-```bash
-uv venv --python 3.12 .venv
-uv pip install --python .venv -r requirments.txt
-.venv\Scripts\python app.py
+```bat
+python app.py           :: מעקב אחר היד
+python index.py         :: הדגמת נקודות ציון של היד
+python snake.py         :: סנייק בשליטת מחוות
+python flappyBird.py    :: פלאפי בירד בשליטת מחוות
 ```
+
+בכל פתיחת חלון CMD חדש, הפעל קודם את הסביבה:
+```bat
+.venv\Scripts\activate
+```
+
+## הערות
+- צריך **מצלמה** ו**מסך** (חלונות OpenCV / pygame).
+- **חשוב לא לשנות את גרסת mediapipe:** החל מ-0.10.30 הוסר ה-API הישן `mp.solutions`.
+  כל הסקריפטים כאן משתמשים ב-`mp.solutions.hands`, לכן `requirments.txt` מקבע
+  `mediapipe>=0.10.14,<0.10.30`. אל תסיר את ההגבלה הזו.
+- הפרויקט הזה **לא** כולל TensorFlow בכוונה: mediapipe דורש `protobuf<5` ואילו
+  TensorFlow ≥ 2.20 דורש `protobuf>=5.28` — הם לא יכולים לדור יחד, והסקריפטים
+  כאן לא משתמשים ב-TensorFlow.

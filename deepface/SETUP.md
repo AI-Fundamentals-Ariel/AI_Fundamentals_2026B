@@ -1,28 +1,34 @@
-# deepface — setup & run
+# deepface — התקנה והרצה (Windows)
 
-Live face **age / emotion** detection with [DeepFace](https://github.com/serengil/deepface).
+זיהוי **גיל / רגש** בזמן אמת מהמצלמה, מבוסס על [DeepFace](https://github.com/serengil/deepface).
 
-## Quick start
+## דרישה מקדימה
+התקן **Python 3.12** מהאתר הרשמי: https://www.python.org/downloads/
+בזמן ההתקנה סמן את התיבה **"Add Python to PATH"**. זה הכלי היחיד שצריך.
 
-```bash
-./setup.sh            # installs uv (if missing) + Python 3.12 + dependencies into .venv
-./run.sh age.py       # live age estimation from the webcam
-./run.sh emotion.py   # live emotion detection from the webcam
+## התקנה (פעם אחת)
+פתח **CMD** בתיקייה הזו והרץ:
+
+```bat
+py -3.12 -m venv .venv
+.venv\Scripts\activate
+pip install -r requirments.txt
 ```
 
-`setup.sh` is automatic and safe to re-run. It installs [`uv`](https://astral.sh/uv)
-if you don't have it, and `uv` then downloads **Python 3.12** for you if it's
-missing — no system Python required.
+## הרצה
+כשהסביבה פעילה (מופיע `(.venv)` בתחילת השורה):
 
-## Notes
-- Requires a **webcam** and a **display** (opens an OpenCV window; press `ESC` to quit).
-- First run downloads the DeepFace model weights (~0.5 GB) to `~/.deepface/`.
-- `deepface` pulls in a compatible **TensorFlow** automatically; `tf-keras` is
-  required for TensorFlow ≥ 2.16.
-
-## Windows / manual
-```bash
-uv venv --python 3.12 .venv
-uv pip install --python .venv -r requirments.txt
-.venv\Scripts\python age.py
+```bat
+python age.py        :: הערכת גיל חיה מהמצלמה
+python emotion.py    :: זיהוי רגש חי מהמצלמה
 ```
+
+בכל פתיחת חלון CMD חדש, הפעל קודם את הסביבה:
+```bat
+.venv\Scripts\activate
+```
+
+## הערות
+- צריך **מצלמה** ו**מסך** (נפתח חלון OpenCV; לחיצה על `ESC` סוגרת).
+- בהרצה הראשונה DeepFace מוריד משקלי מודל (~0.5 GB) אל `C:\Users\<שם>\.deepface\`.
+- `deepface` מתקין **TensorFlow** מתאים אוטומטית; `tf-keras` נדרש עבור TensorFlow ≥ 2.16.
